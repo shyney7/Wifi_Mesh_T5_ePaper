@@ -26,8 +26,8 @@
 
 //uncomment one of the following lines per node
 //#define RED
-//#define GREEN
-#define WHITE
+#define GREEN
+//#define WHITE
 
 Scheduler userScheduler; // to control your personal task
 painlessMesh mesh;
@@ -64,7 +64,7 @@ SimpleList<uint32_t> nodes;
 uint32_t nsent=0;
 char buff[512];
 
-void helloWorld();
+//void helloWorld();
 void sendMessage(String msg);
 
 void initDisplay() {
@@ -104,8 +104,8 @@ void newConnectionCallback(uint32_t nodeId) {
 }
 
 void changedConnectionCallback() {
+  int16_t tbx, tby; uint16_t tbw, tbh;
   Serial.printf("Changed connections\n");
-  
   nodes = mesh.getNodeList();
   Serial.printf("Num nodes: %d\n", nodes.size());
   Serial.printf("Connection list:");
@@ -119,6 +119,9 @@ void changedConnectionCallback() {
 
   sprintf(buff, "Nodes: %d", nodes.size());
   display.setCursor(0, 36);
+  display.getTextBounds(buff, 0, 36, &tbx, &tby, &tbw, &tbh);
+  display.setPartialWindow(tbx, tby, tbw, tbh);
+  display.fillScreen(GxEPD_WHITE);
   do
   {
     display.println(buff);
@@ -135,6 +138,7 @@ void onNodeDelayReceived(uint32_t nodeId, int32_t delay) {
 }
 
 void sendMessage(String msg) {
+  int16_t tbx, tby; uint16_t tbw, tbh;
   if (strcmp(msg.c_str(), "") == 0) {
     nsent++;
     msg = MESSAGE;
@@ -144,6 +148,9 @@ void sendMessage(String msg) {
   Serial.printf("Tx--> %s\n", msg.c_str());
   sprintf(buff, "Tx: %s", msg.c_str());
   display.setCursor(0, 72);
+  display.getTextBounds(buff, 0, 72, &tbx, &tby, &tbw, &tbh);
+  display.setPartialWindow(tbx, tby, tbw, tbh);
+  display.fillScreen(GxEPD_WHITE);
   do
   {
     display.println(buff);
