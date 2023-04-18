@@ -25,8 +25,8 @@
 //#define MESH_PORT ****
 
 //uncomment one of the following lines per node
-//#define RED
-#define GREEN
+#define RED
+//#define GREEN
 //#define WHITE
 
 Scheduler userScheduler; // to control your personal task
@@ -41,7 +41,7 @@ painlessMesh mesh;
 #ifdef RED
 #define ROLE "red"
 #define VERSION "RED v1.0.0"
-#define MESSAGE "Red "
+#define MESSAGE "Red   "
 #endif
 
 #ifdef GREEN
@@ -146,7 +146,7 @@ void sendMessage(String msg) {
   }
   mesh.sendBroadcast(msg);
   Serial.printf("Tx--> %s\n", msg.c_str());
-  sprintf(buff, "Tx: %s", msg.c_str());
+  sprintf(buff, "Tx:%s", msg.c_str());
   display.setCursor(0, 72);
   display.getTextBounds(buff, 0, 72, &tbx, &tby, &tbw, &tbh);
   display.setPartialWindow(tbx, tby, tbw, tbh);
