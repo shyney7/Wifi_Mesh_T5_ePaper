@@ -171,7 +171,7 @@ void button_setup() {
   btn1.setPressedHandler([](Button2 & b) {
     Serial.println("Button 1 pressed");
     sendMessage("");
-    Serial.println("Free memory: " + String(esp_get_free_heap_size()) + " bytes");
+    Serial.println("Free memory: " + String(esp_get_minimum_free_heap_size()) + " bytes");
   });
   /* btn1.setLongClickHandler([](Button2 & b) {
     Serial.println("Button 1 long pressed");
